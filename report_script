@@ -1,0 +1,28 @@
+# Configuration
+$webhookUrl = "https://YOUR_WEBHOOK_URL"  # Replace with your actual Teams webhook URL
+$searchTerm = "Updated Windows Defender status successfully to SECURITY_PRODUCT_STATE_OFF"
+$logName = "Application"
+
+# Get the device name
+$deviceName = $env:COMPUTERNAME
+
+# Get the first occurrence of the matching event
+$event = Get-EventLog -LogName $logName |
+    Where-Object { $_.Message -match $searchTerm } |
+    Sort-Object TimeGenerated -Descending |
+    Select-Object -First 1
+
+# If a matching event is found, send a Teams notification
+if ($event) {
+    $eventTime = $event.TimeGenerated.ToString("yyyy-MM-dd HH:mm:ss")
+    $message = $event.Message -replace "`r`n", " " -replace '"', "'"
+
+    $payload = @{
+        title = "WARNING! Defender AV State Change Detected!"
+        text  = "**Device:** $deviceName`n**Time:** $eventTime`n**Message:**`n$message"
+    }
+
+    $jsonPayload = ConvertTo-Json $payload -Depth 3
+
+    Invoke-RestMethod -Uri $webhookUrl -Method Post -ContentType 'application/json' -Body $jsonPayload
+}
