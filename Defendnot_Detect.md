@@ -4,7 +4,7 @@ Since we need this to be identified sooner rather than later, if the device is e
 
 I'm using a Webhook to create the script and my report-back method, wrap it as a PowerShell script, and create the remediation script policy in Intune to run hourly. This will look at the latest event and notify. Surely the script can be modified as you need, so it will not flood your alerts.
 
-1. Create the Webhook Using Microsoft Teams.
+1. Create the Webhook Using Microsoft Teams --> https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet#create-an-incoming-webhook
 2. Create the detection script.
 3. Create the remediation (in this case action) script.
 <br><br>
