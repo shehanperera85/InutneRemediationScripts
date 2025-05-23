@@ -1,0 +1,17 @@
+# Detection Script
+
+$searchTerm = "Updated Windows Defender status successfully to SECURITY_PRODUCT_STATE_OFF"
+$logName = "Application"
+
+$event = Get-EventLog -LogName $logName |
+    Where-Object { $_.Message -match $searchTerm } |
+    Sort-Object TimeGenerated -Descending |
+    Select-Object -First 1
+
+if ($event) {
+    Write-Output "Defender AV state change detected."
+    exit 1  # triggers remediation
+} else {
+    Write-Output "No AV state change found."
+    exit 0  # no issue
+}
