@@ -1,8 +1,8 @@
-**About the Script**
+💡**About the Script**
 <br>
 Since we need this to be identified sooner rather than later, if the device is enrolled in Intune, we can use a Remediation script to detect and report the event logs. My goal is to detect the Application Event ID 15 and notify it via Microsoft Teams.
 
-I'm using a Webhook to create the script and my report-back method, wrap it as a PowerShell script, and create the remediation script policy in Intune to run hourly. This will look at the latest event and notify. Surely the script can be modified as you need, so it will not flood your alerts.
+🪝I'm using a Webhook to create the script and my report-back method, wrap it as a PowerShell script, and create the remediation script policy in Intune to run hourly. This will look at the latest event and notify. Surely the script can be modified as you need, so it will not flood your alerts.
 
 1. Create the Webhook Using Microsoft Teams --> https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cdotnet#create-an-incoming-webhook
 2. Create the detection script.
